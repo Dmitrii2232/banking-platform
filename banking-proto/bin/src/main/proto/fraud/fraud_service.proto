@@ -1,0 +1,30 @@
+syntax = "proto3";
+package bank.fraud;
+import "fraud/fraud.proto";
+import "transaction/transaction.proto";
+import "common/types.proto";
+option java_multiple_files = true;
+option java_package = "com.bank.grpc.fraud";
+
+service FraudService {
+    rpc CheckTransaction (FraudCheckRequest) returns (FraudCheckResponse);
+    rpc AddToBlacklist (BlacklistRequest) returns (common.EmptyResponse);
+}
+
+message FraudCheckRequest {
+    bank.common.RequestContextProto context = 1;
+    transaction.TransactionProto transaction = 2;
+}
+message FraudCheckResponse {
+    string transaction_id = 1;
+    bank.common.RiskLevelProto risk_level = 2;
+    double fraud_score = 3;
+    repeated string reasons = 4;
+    bool should_block = 5;
+}
+message BlacklistRequest {
+    string entity_id = 1;
+    string entity_type = 2;
+    string reason = 3;
+    string operator_id = 4;
+}

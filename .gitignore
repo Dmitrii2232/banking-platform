@@ -1,0 +1,62 @@
+# === Maven / Java ===
+target/
+*.class
+*.jar
+*.war
+!.mvn/wrapper/maven-wrapper.jar
+
+# === IDE ===
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+*.swp
+*.swo
+*~
+
+# === OS ===
+.DS_Store
+Thumbs.db
+
+# === Docker ===
+docker-compose.override.yml
+
+# === Logs ===
+*.log
+logs/
+
+# === Environment ===
+.env
+.env.local
+*.env
+
+# === Node (фронтенд) ===
+node_modules/
+.next/
+out/
+
+# === Secrets & Certificates ===
+*_creds
+*.jks
+*.p12
+*.key
+*.crt
+*.csr
+*.srl
+*.pem
+!certs/*.pem
+secrets/
+
+certs/
+config/
+banking-core/kafka/
+
+**/application.yml
+**/application.yaml
+**/application-*.yml
+**/application-*.yaml
+
+docker-compose.yml
+Dockerfile

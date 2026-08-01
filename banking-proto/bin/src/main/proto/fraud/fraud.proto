@@ -1,0 +1,16 @@
+syntax = "proto3";
+package bank.fraud;
+import "common/types.proto";
+option java_multiple_files = true;
+option java_package = "com.bank.grpc.fraud";
+
+message FraudAlertProto {
+    string alert_id = 1;
+    string transaction_id = 2;
+    string client_id = 3;
+    bank.common.RiskLevelProto risk_level = 4;
+    double score = 5;
+    repeated string reasons = 6;
+    string amount = 7;
+    string currency = 8;
+}

@@ -1,0 +1,21 @@
+syntax = "proto3";
+package bank.accounting;
+import "accounting/accounting.proto";
+import "common/types.proto";
+option java_multiple_files = true;
+option java_package = "com.bank.grpc.accounting";
+
+service AccountingService {
+    rpc GetAccountBalance (GetAccountBalanceRequest) returns (AccountBalanceResponse);
+    rpc VerifyBalance (VerifyBalanceRequest) returns (VerifyBalanceResponse);
+}
+
+message GetAccountBalanceRequest { string account_code = 1; }
+message AccountBalanceResponse {
+    string account_code = 1;
+    string account_name = 2;
+    string side = 3;
+    bank.common.MoneyProto balance = 4;
+}
+message VerifyBalanceRequest {}
+message VerifyBalanceResponse { bool is_balanced = 1; }

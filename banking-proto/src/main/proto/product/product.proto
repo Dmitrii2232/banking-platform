@@ -1,0 +1,33 @@
+syntax = "proto3";
+package bank.product;
+import "common/types.proto";
+option java_multiple_files = true;
+option java_package = "com.bank.grpc.product";
+
+enum ProductTypeProto { UNKNOWN = 0; TERM_DEPOSIT = 1; CURRENT_ACCOUNT = 2; CREDIT_CARD = 3; LOAN = 4; }
+enum ProductStatusProto { DRAFT = 0; ACTIVE = 1; FROZEN = 2; BLOCKED = 3; MATURED = 4; CLOSED = 5; }
+
+message ProductTermsProto {
+    string product_name = 1;
+    string interest_rate = 2;
+    string rate_type = 3;
+    bank.common.MoneyProto min_balance = 4;
+    bank.common.MoneyProto max_balance = 5;
+    int32 term_months = 6;
+    bool capitalization = 7;
+    bool replenishable = 8;
+    bool partial_withdrawal = 9;
+    bank.common.MoneyProto monthly_fee = 10;
+    int32 grace_period_days = 11;
+    bank.common.MoneyProto credit_limit = 12;
+}
+
+message ProductProto {
+    string product_id = 1;
+    string client_id = 2;
+    ProductTypeProto product_type = 3;
+    ProductStatusProto status = 4;
+    bank.common.MoneyProto balance = 5;
+    int64 version = 6;
+    bool is_master = 7;  // ← ДОБАВЛЕНО
+}

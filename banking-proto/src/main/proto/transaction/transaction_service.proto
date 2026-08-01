@@ -1,0 +1,39 @@
+syntax = "proto3";
+package bank.transaction;
+import "transaction/transaction.proto";
+import "common/types.proto";
+option java_multiple_files = true;
+option java_package = "com.bank.grpc.transaction";
+
+service TransactionService {
+    rpc Deposit (DepositRequest) returns (DepositResponse);
+    rpc Withdraw (WithdrawRequest) returns (WithdrawResponse);
+    rpc Transfer (TransferRequest) returns (TransferResponse);
+    rpc GetTransactionStatus (GetTransactionStatusRequest) returns (TransactionProto);
+}
+
+message DepositRequest {
+    bank.common.RequestContextProto context = 1;
+    string product_id = 2;
+    bank.common.MoneyProto amount = 3;
+    string source_id = 4;
+    string device_fingerprint = 5;
+}
+message DepositResponse { string transaction_id = 1; TransactionStatusProto status = 2; }
+message WithdrawRequest {
+    bank.common.RequestContextProto context = 1;
+    string product_id = 2;
+    bank.common.MoneyProto amount = 3;
+    string destination_id = 4;
+    string device_fingerprint = 5;
+}
+message WithdrawResponse { string transaction_id = 1; TransactionStatusProto status = 2; }
+message TransferRequest {
+    bank.common.RequestContextProto context = 1;
+    string source_product_id = 2;
+    string destination_product_id = 3;
+    bank.common.MoneyProto amount = 4;
+    string description = 5;
+}
+message TransferResponse { string transaction_id = 1; TransactionStatusProto status = 2; }
+message GetTransactionStatusRequest { string transaction_id = 1; }

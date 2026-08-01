@@ -1,0 +1,24 @@
+syntax = "proto3";
+package bank.common;
+option java_multiple_files = true;
+option java_package = "com.bank.grpc.common";
+
+message MoneyProto {
+    string currency = 1;
+    string amount = 2;
+}
+
+message ProductIdProto { string id = 1; }
+message ClientIdProto { string id = 1; }
+message TransactionIdProto { string id = 1; }
+message EventIdProto { string id = 1; int64 version = 2; }
+
+message RequestContextProto {
+    string trace_id = 1;
+    string span_id = 2;
+    string user_id = 3;
+    string ip_address = 4;
+}
+
+enum RiskLevelProto { NONE = 0; LOW = 1; MEDIUM = 2; HIGH = 3; CRITICAL = 4; }
+message EmptyResponse {}

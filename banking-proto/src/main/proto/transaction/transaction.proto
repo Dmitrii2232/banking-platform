@@ -1,0 +1,23 @@
+syntax = "proto3";
+package bank.transaction;
+import "common/types.proto";
+import "google/protobuf/timestamp.proto";
+option java_multiple_files = true;
+option java_package = "com.bank.grpc.transaction";
+
+enum TransactionTypeProto { UNKNOWN = 0; DEPOSIT = 1; WITHDRAWAL = 2; TRANSFER = 3; PAYMENT = 4; }
+enum TransactionStatusProto { PENDING = 0; PROCESSING = 1; COMPLETED = 2; FAILED = 3; REJECTED = 4; BLOCKED = 5; }
+
+message TransactionProto {
+    bank.common.TransactionIdProto transaction_id = 1;
+    bank.common.ClientIdProto client_id = 2;
+    TransactionTypeProto type = 3;
+    bank.common.MoneyProto amount = 4;
+    string source_product_id = 5;
+    string destination_product_id = 6;
+    string description = 7;
+    TransactionStatusProto status = 8;
+    string device_fingerprint = 9;
+    string ip_address = 10;
+    google.protobuf.Timestamp created_at = 11;
+}

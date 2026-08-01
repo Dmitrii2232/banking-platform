@@ -1,0 +1,19 @@
+syntax = "proto3";
+package bank.auth;
+option java_multiple_files = true;
+option java_package = "com.bank.grpc.auth";
+
+service ClientService {
+    rpc FindByPhone (FindByPhoneRequest) returns (FindByPhoneResponse);
+}
+
+message FindByPhoneRequest {
+    string phone = 1;
+}
+
+message FindByPhoneResponse {
+    bool found = 1;
+    string client_id = 2;
+    string first_name = 3;
+    string last_name = 4;
+}

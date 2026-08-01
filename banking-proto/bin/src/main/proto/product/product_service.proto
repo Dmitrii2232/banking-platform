@@ -1,0 +1,59 @@
+syntax = "proto3";
+package bank.product;
+import "product/product.proto";
+import "common/types.proto";
+option java_multiple_files = true;
+option java_package = "com.bank.grpc.product";
+
+service ProductService {
+    rpc OpenProduct (OpenProductRequest) returns (OpenProductResponse);
+    rpc CloseProduct (CloseProductRequest) returns (CloseProductResponse);
+    rpc GetProduct (GetProductRequest) returns (ProductProto);
+    rpc GetClientProducts (GetClientProductsRequest) returns (GetClientProductsResponse);
+    rpc BlockProduct (BlockProductRequest) returns (BlockProductResponse);
+    rpc UnblockProduct (UnblockProductRequest) returns (UnblockProductResponse);
+    rpc FindClientByPhone (FindClientByPhoneRequest) returns (FindClientByPhoneResponse);
+    rpc GetMasterAccount (GetMasterAccountRequest) returns (ProductProto);
+    rpc SetMasterAccount (SetMasterAccountRequest) returns (SetMasterAccountResponse);
+}
+
+message OpenProductRequest {
+    bank.common.RequestContextProto context = 1;
+    string client_id = 2;
+    ProductTypeProto product_type = 3;
+    ProductTermsProto terms = 4;
+}
+message OpenProductResponse { string product_id = 1; ProductStatusProto status = 2; }
+message CloseProductRequest { bank.common.RequestContextProto context = 1; string product_id = 2; string reason = 3; }
+message CloseProductResponse { string product_id = 1; ProductStatusProto status = 2; }
+message GetProductRequest { string product_id = 1; }
+message GetClientProductsRequest { string client_id = 1; int32 page_size = 2; string page_token = 3; }
+message GetClientProductsResponse { repeated ProductProto products = 1; string next_page_token = 2; int32 total_count = 3; }
+message BlockProductRequest { bank.common.RequestContextProto context = 1; string product_id = 2; string reason = 3; }
+message BlockProductResponse { string product_id = 1; ProductStatusProto status = 2; }
+message UnblockProductRequest { bank.common.RequestContextProto context = 1; string product_id = 2; string reason = 3; }
+message UnblockProductResponse { string product_id = 1; ProductStatusProto status = 2; }
+
+message FindClientByPhoneRequest {
+    string phone = 1;
+}
+
+message FindClientByPhoneResponse {
+    bool found = 1;
+    string client_id = 2;
+    string master_product_id = 3;
+}
+
+message GetMasterAccountRequest {
+    string client_id = 1;
+}
+
+message SetMasterAccountRequest {
+    string client_id = 1;
+    string product_id = 2;
+}
+
+message SetMasterAccountResponse {
+    bool success = 1;
+    string message = 2;
+}

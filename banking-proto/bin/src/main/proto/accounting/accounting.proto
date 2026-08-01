@@ -1,0 +1,13 @@
+syntax = "proto3";
+package bank.accounting;
+import "common/types.proto";
+option java_multiple_files = true;
+option java_package = "com.bank.grpc.accounting";
+
+message AccountingEntryProto {
+    string debit_account_code = 1;
+    string credit_account_code = 2;
+    bank.common.MoneyProto amount = 3;
+    string description = 4;
+    string event_id = 5;
+}
